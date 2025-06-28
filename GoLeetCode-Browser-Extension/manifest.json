@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "GoLeetCode",
+  "version": "1.0",
+  "description": "Get hints for LeetCode problems from a custom AI bot.",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": ["activeTab", "scripting", "tabs", "storage"],
+  "host_permissions": [
+    "http://localhost:3000/*",
+    "https://your-proxy-server-domain.com/*"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}

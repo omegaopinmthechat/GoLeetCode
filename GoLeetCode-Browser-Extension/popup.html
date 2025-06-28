@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoLeetCode</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 10px;
+            width: 350px;
+            background-color: #1a032a;
+            color: #e0e0e0;
+            box-sizing: border-box;
+        }
+        .container {
+            padding: 15px;
+            background: linear-gradient(145deg, #2c0640, #3a085b);
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+            border: 1px solid #4b0082;
+        }
+        h1 {
+            background: linear-gradient(to right, #8a2be2, #4b0082);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            font-size: 2.2em;
+            margin-top: 0;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #6a1bb3;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        #problemNameDisplay {
+            text-align: center;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #d0d0d0;
+            font-weight: bold;
+        }
+        p {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            color: #bbb;
+        }
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #5a2c7a;
+            border-radius: 8px;
+            box-sizing: border-box;
+            resize: vertical;
+            min-height: 80px;
+            max-height: 150px;
+            font-size: 1em;
+            background-color: #3d0d5b;
+            color: #fff;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        textarea::placeholder {
+            color: #a0a0a0;
+        }
+        button {
+            background: linear-gradient(to right, #8a2be2, #4b0082);
+            color: white;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            box-sizing: border-box;
+            transition: background 0.3s ease, transform 0.1s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+        button:hover {
+            background: linear-gradient(to right, #6a1bb3, #3a0063);
+            transform: translateY(-2px);
+        }
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+        button:disabled {
+            background: #555;
+            cursor: not-allowed;
+            opacity: 0.7;
+            box-shadow: none;
+        }
+
+        #response-container {
+            margin-top: 0px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #3d0d5b;
+            border-radius: 8px;
+            min-height: 60px;
+            max-height: 250px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 0.95em;
+            color: #e0e0e0;
+            border: 1px solid #5a2c7a;
+            line-height: 1.6;
+        }
+        #response-container p {
+            text-align: left;
+            margin: 0;
+            padding: 0;
+            color: inherit;
+        }
+        #response-container p strong {
+            font-weight: bold;
+            color: #b3d9ff;
+        }
+        #response-container p em {
+            font-style: italic;
+            color: #c9ffb3;
+        }
+
+        h2 {
+            color: #c0c0c0;
+            text-align: center;
+            font-size: 1.25em;
+            margin-top: 0px;
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+        hr {
+            border: 0;
+            height: 2px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #8a2be2, rgba(0, 0, 0, 0));
+            margin: 25px 0;
+        }
+
+        .loading-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 40px;
+            background-color: #3d0d5b;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+
+        .dot-pulse {
+            position: relative;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #8a2be2;
+            animation: dotPulse 1.5s infinite ease-in-out;
+            margin: 0 5px;
+        }
+
+        .dot-pulse:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .dot-pulse:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        @keyframes dotPulse {
+            0%, 100% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>GoLeetCode</h1>
+        <div id="problemNameDisplay"></div>
+
+        <h2>Bot Response:</h2>
+        <div id="response-container">
+            <p>Bot's hints will appear here...</p>
+        </div>
+
+        <div id="activity-indicator-area"></div>
+
+        <hr>
+
+        <textarea id="questionInput" placeholder="e.g., How do I approach Two Sum?"></textarea>
+
+        <button id="sendMessageButton">Send Message</button>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
