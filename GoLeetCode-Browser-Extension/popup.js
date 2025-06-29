@@ -52,7 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (detectedSlug) {
         currentLeetCodeProblemSlug = detectedSlug;
-        // --- MODIFIED LINE HERE ---
         problemNameDisplay.textContent = `Problem: ${formatSlugToProblemName(
           detectedSlug
         )}`;

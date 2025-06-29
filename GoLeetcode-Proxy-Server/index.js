@@ -1,36 +1,23 @@
-// GoLeetcode-Proxy-Server/index.js
 
-// Load environment variables from .env file
-// This MUST be at the very top of your file to ensure variables are loaded before used.
 require("dotenv").config();
 
 const { GoogleGenAI } = require("@google/genai");
 const express = require("express");
-const cors = require("cors"); // Import CORS middleware
+const cors = require("cors"); 
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Enable CORS for all routes - IMPORTANT for browser extensions
 app.use(cors());
 
-// Middleware to parse JSON bodies
 app.use(express.json());
 
-// IMPORTANT: Remove the line that serves static files if it exists,
-// as the browser extension is now providing the UI.
-// You no longer need: app.use(express.static(path.join(__dirname, "public")));
-
-// Configure Google GenAI
-// Ensure GEMINI_API_KEY is set as an environment variable (e.g., in your .env file)
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
 
-// Use the model specified by the user
 const model = "gemma-3-27b-it";
 
-// Initial conversation history/system prompt as provided by the user
 const initialContents = [
   {
     role: "user",
@@ -58,7 +45,6 @@ Bring on the challenge! I'm ready when you are.`,
   },
 ];
 
-// API endpoint for the bot interaction
 app.post("/ask-leetcode", async (req, res) => {
   const userQuestion = req.body.question;
 
@@ -67,7 +53,6 @@ app.post("/ask-leetcode", async (req, res) => {
   }
 
   try {
-    // Combine initial prompt with the current user question
     const contents = [
       ...initialContents,
       {
@@ -76,7 +61,6 @@ app.post("/ask-leetcode", async (req, res) => {
       },
     ];
 
-    // Model configuration - 'thinkingConfig' has been removed
     const config = {
       responseMimeType: "text/plain",
     };
@@ -92,10 +76,9 @@ app.post("/ask-leetcode", async (req, res) => {
       botResponse += chunk.text;
     }
 
-    res.json({ response: botResponse }); // Send the bot's response back to the client
+    res.json({ response: botResponse }); 
   } catch (error) {
     console.error("Error interacting with Gemini API:", error);
-    // Provide a more detailed error message to the client if possible
     let errorMessage =
       "An unknown error occurred while processing your request.";
     if (error && typeof error === "object" && "message" in error) {
@@ -107,7 +90,6 @@ app.post("/ask-leetcode", async (req, res) => {
   }
 });
 
-// Start the server
 app.listen(port, () => {
   console.log(`Proxy server listening at http://localhost:${port}`);
 });
