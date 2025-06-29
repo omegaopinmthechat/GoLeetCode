@@ -32,7 +32,7 @@ Most tools like *FLeetCode* prioritize quick solutions, often at the cost of gen
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/GoLeetCode.git
+git clone https://github.com/omegaopinmthechat/GoLeetCode.git
 ```
 
 ### 2. Start the Proxy Server
