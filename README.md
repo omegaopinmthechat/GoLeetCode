@@ -27,6 +27,14 @@ Most tools like *FLeetCode* prioritize quick solutions, often at the cost of gen
 
 ---
 
+## 🛠️ Environment Setup
+
+1. Create a `.env` file in the `GoLeetcode-Proxy-Server` directory
+2. Add your Google Gemini API key:
+   ```
+   GEMINI_API_KEY=YourAPIKey
+   ```
+
 ## 🛠️ Installation
 
 ### 1. Clone the Repository
